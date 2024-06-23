@@ -2,10 +2,10 @@ import { BoltIcon, ExclamationTriangleIcon, SunIcon } from '@heroicons/react/24/
 
 export default function Home() {
   return (
-    <div className='flex flex-col items-center justify-center h-screen text-white px-2'>
+    <div className='flex flex-col items-center justify-center min-h-screen text-white px-2'>
       <h1 className='text-5xl font-bold mb-20'>ChatGPT</h1>
 
-      <div className='flex space-x-2 text-center'>
+      <div className='flex flex-col sm:flex-row space-x-2 text-center'>
         <div id='home-page-col-1'>
 
           <div className='flex flex-col justify-center items-center mb-5'>

@@ -1,18 +1,19 @@
 "use client"
 import { db } from "@/firebase";
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid"
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp, query, orderBy } from "firebase/firestore";
 import { useSession } from "next-auth/react";
 import { useState } from "react"
 import toast from "react-hot-toast";
 import ModelSelection from "./ModelSelection";
-import useSWR from "swr";
+import { useCollection } from "react-firebase-hooks/firestore";
 
 export default function ChatInput({ chatId }) {
     const [prompt, setPrompt] = useState("");
     const { data: session } = useSession();
-    // useSWR to get model
-    const { data: model } = useSWR("model", { fallbackData: "gpt-3.5-turbo-16k" })
+    const [messages] = useCollection(
+        session && query(collection(db, "users", session?.user?.email, "chats", chatId, "messages"), orderBy("createdAt", "asc"))
+    );
 
     async function sendMessage(e) {
         e.preventDefault();
@@ -33,6 +34,23 @@ export default function ChatInput({ chatId }) {
 
         await addDoc(collection(db, "users", session?.user?.email, "chats", chatId, "messages"), message);
 
+        // data.text.user._id = "ChatGPT" ---> role: "model"
+
+        // let modData = {
+        //     role: "user",
+        //     parts: [{ text: data.text.text }],
+        // }
+
+        // setup chatHistory
+        let chatHistory = messages?.docs.map((message) => {
+            let data = message.data()
+            let modData = {
+                role: data.user._id === "ChatGPT" ? "model" : "user",
+                parts: [{ text: data.text }],
+            }
+            return modData;
+        });
+
         // Toast Notification -> loading
         const notification = toast.loading("ChatGPT is thinking...");
 
@@ -42,10 +60,9 @@ export default function ChatInput({ chatId }) {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                prompt: input, chatId, model, session
+                prompt: input, chatId, session, chatHistory
             })
         }).then(() => {
-            // Toast Notification -> successfull
             toast.success("ChatGPT has responded", { id: notification })
         }).catch((err) => {
             console.error(err);

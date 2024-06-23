@@ -5,7 +5,7 @@ import ChatRow from "./ChatRow";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { collection, orderBy, query } from "firebase/firestore";
 import { db } from "@/firebase";
-import ModelSelection from "./ModelSelection";
+import SidebarToggle from "./SidebarToggle";
 
 export default function SideBar() {
     const { data: session } = useSession();
@@ -13,36 +13,39 @@ export default function SideBar() {
         session && query(collection(db, "users", session.user?.email, "chats"), orderBy("createdAt", "asc"))
     );
     return (
-        <div className="p-2 flex flex-col h-screen">
-
-            <div className="flex-1">
-                <div>
-                    <NewChat />
-                    <div className="hidden sm:inline">
-                        <ModelSelection />
-                    </div>
-
-                    <div className="flex flex-col space-y-2 my-2">
-                        {
-                            loading && (
-                                <div className="animate-pulse text-center text-white">
-                                    <p>Loading chats...</p>
-                                </div>
-                            )
-                        }
-
-                        {
-                            chats?.docs.map(chat => {
-                                return <ChatRow key={chat.id} id={chat.id} />
-                            })
-                        }
-                    </div>
-
-                </div>
+        <div id="sidebar" className="bg-[#202123] w-[280px] relative flex flex-col h-screen">
+            <div id="sidebar-button-container" className="flex items-center justify-between p-4">
+                <SidebarToggle />
+                <NewChat />
             </div>
 
-            {
-                session && <img onClick={() => { signOut() }} className="h-12 w-12 rounded-full cursor-pointer mx-auto mb-2 hover:opacity-50" src={session.user.image} alt="Profile picture" />
+            <div
+                id="chat-history"
+                className="flex flex-col space-y-4 items-center w-full"
+            >
+                {
+                    loading && (
+                        <div className="animate-pulse text-center text-white">
+                            <p>Loading chats...</p>
+                        </div>
+                    )
+                }
+
+                {
+                    chats?.docs.map(chat => {
+                        return <ChatRow key={chat.id} id={chat.id} />
+                    })
+                }
+            </div>
+
+            {session &&
+                <div
+                    id="user-info"
+                    className="flex items-center gap-4 p-4 absolute bottom-0 left-0 w-full"
+                >
+                    <img onClick={() => { signOut() }} title="Logout" className="rounded-full cursor-pointer h-10 w-10 hover:opacity-50 transition-all duration-200" src={session.user.image} alt="Profile picture" />
+                    <span id="user-name" className="text-[#eeeeee] text-sm">{session?.user?.email.split("@")[0]}</span>
+                </div>
             }
         </div>
     )

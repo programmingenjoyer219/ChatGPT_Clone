@@ -1,4 +1,4 @@
-import { PlusIcon } from "@heroicons/react/24/solid";
+import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -21,9 +21,13 @@ export default function NewChat() {
     }
 
     return (
-        <div onClick={createNewChat} className="border border-gray-700 chatRow">
-            <PlusIcon className="h-4 w-4" />
-            <span>New Chat</span>
-        </div>
+        <button
+            title="New Chat"
+            onClick={createNewChat}
+            id="new-chat-button"
+            className="transition-all duration-200 hover:bg-gray-700/50 rounded-md p-2"
+        >
+            <PencilSquareIcon className="h-6 w-6 text-gray-500 font-semibold" />
+        </button>
     )
 }

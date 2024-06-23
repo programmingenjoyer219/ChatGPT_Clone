@@ -4,7 +4,7 @@ import admin from "firebase-admin";
 import { adminDb } from "@/firebaseAdmin";
 
 export async function POST(request) {
-    const { prompt, chatId, model, session } = await request.json();
+    const { prompt, chatId, session, chatHistory } = await request.json();
 
     if (!prompt) {
         return new Response(JSON.stringify({ error: 'Please provide a prompt' }), {
@@ -21,7 +21,7 @@ export async function POST(request) {
     }
 
     // ChatGPT query
-    const response = await query(prompt, model);
+    const response = await query(prompt, chatHistory);
 
     const message = {
         text: response || "ChatGPT could not find an answer",

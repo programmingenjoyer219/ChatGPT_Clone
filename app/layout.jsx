@@ -22,9 +22,7 @@ export default async function RootLayout({ children }) {
 							?
 							(
 								<div className="flex">
-									<div className="bg-[#202123] max-w-xs h-screen overflow-y-auto md:min-w-[20rem]">
-										<SideBar />
-									</div>
+									<SideBar />
 
 									<ClientProvider />
 

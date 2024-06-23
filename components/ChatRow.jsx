@@ -18,6 +18,13 @@ export default function ChatRow({ id }) {
         collection(db, "users", session?.user?.email, "chats", id, "messages"),
     );
 
+    let messagePreview = "";
+    if (messages?.docs[0]?.data().text.length < 24) {
+        messagePreview = messages?.docs[0]?.data().text
+    } else {
+        messagePreview = `${messages?.docs[0]?.data().text.substring(0, 24)}...`
+    }
+
     useEffect(() => {
         if (!pathName) return;
         setActive(pathName.includes(id));
@@ -29,14 +36,13 @@ export default function ChatRow({ id }) {
     }
 
     return (
-        <Link href={`/chat/${id}`} className={`chatRow justify-center ${active && 'bg-gray-700/50'}`}>
-            <ChatBubbleLeftIcon className="h-5 w-5" />
-            <span className="flex-1 hidden md:inline-flex truncate">
+        <Link href={`/chat/${id}`} className={`font-medium w-[90%] px-4 py-2 flex items-center justify-between rounded-md transition-all duration-200 hover:bg-gray-700/50 ${active && 'bg-gray-700/50'}`}>
+            <span className="text-[#eeeeee] truncate">
                 {
-                    messages?.docs[0]?.data().text || "New Chat"
+                    messagePreview || "New Chat"
                 }
             </span>
-            <TrashIcon onClick={removeChat} className="text-gray-700 h-5 w-5 hover:text-red-500" />
+            <TrashIcon title="Delete Chat" onClick={removeChat} className="text-gray-500 h-5 w-5 hover:text-red-500" />
         </Link>
     )
 }
