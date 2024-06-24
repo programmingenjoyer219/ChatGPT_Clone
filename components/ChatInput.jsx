@@ -1,6 +1,6 @@
 "use client"
 import { db } from "@/firebase";
-import { PaperAirplaneIcon } from "@heroicons/react/24/solid"
+import { PaperAirplaneIcon, ArrowUpCircleIcon } from "@heroicons/react/24/solid"
 import { addDoc, collection, serverTimestamp, query, orderBy } from "firebase/firestore";
 import { useSession } from "next-auth/react";
 import { useState } from "react"
@@ -70,16 +70,11 @@ export default function ChatInput({ chatId }) {
     }
 
     return (
-        <div className="bg-gray-700/50 text-gray-400 rounded-lg text-sm">
-            <form onSubmit={sendMessage} className='p-5 space-x-5 flex'>
-                <input disabled={!session} className="bg-transparent flex-1 focus:outline-none disabled:cursor-not-allowed disabled:text-gray-300" onChange={(e) => { setPrompt(e.target.value) }} type="text" placeholder='Type your message here...' value={prompt} />
-                <button type='submit' disabled={!prompt || !session} className="bg-[#11a37f] hover:opacity-50 text-white font-bold px-4 py-2 rounded disabled:bg-gray-300 disabled:cursor-not-allowed">
-                    <PaperAirplaneIcon className="h-4 w-4 -rotate-45" />
-                </button>
-            </form>
-            <div className="sm:hidden">
-                <ModelSelection />
-            </div>
-        </div>
+        <form onSubmit={sendMessage} className='p-2 my-4 bg-zinc-700 space-x-4 rounded-full mx-4 flex'>
+            <input disabled={!session} className="bg-transparent text-white flex-1 pl-2 focus:outline-none disabled:cursor-not-allowed disabled:text-gray-300" onChange={(e) => { setPrompt(e.target.value) }} type="text" placeholder='Message ChatGPT' value={prompt} />
+            <button type='submit' disabled={!prompt || !session} className="hover:opacity-50 text-white font-bold rounded disabled:text-gray-300 disabled:cursor-not-allowed">
+                <ArrowUpCircleIcon className="h-8 w-8" />
+            </button>
+        </form>
     )
 }

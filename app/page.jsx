@@ -1,59 +1,18 @@
 import { BoltIcon, ExclamationTriangleIcon, SunIcon } from '@heroicons/react/24/outline'
+import Image from 'next/image'
 
 export default function Home() {
   return (
-    <div className='flex flex-col items-center justify-center min-h-screen text-white px-2'>
-      <h1 className='text-5xl font-bold mb-20'>ChatGPT</h1>
-
-      <div className='flex flex-col sm:flex-row space-x-2 text-center'>
-        <div id='home-page-col-1'>
-
-          <div className='flex flex-col justify-center items-center mb-5'>
-            {/* Sun icon */}
-            <SunIcon className='h-6 w-6' />
-            <h2>Examples</h2>
-          </div>
-
-          <div className='space-y-2'>
-            <p className='infoText'>"Explain something to me"</p>
-            <p className='infoText'>"What is the difference between a dog and a cat?"</p>
-            <p className='infoText'>"What is the color of the sun?"</p>
-          </div>
-
-        </div>
-
-        <div id='home-page-col-2'>
-
-          <div className='flex flex-col justify-center items-center mb-5'>
-            {/* Sun icon */}
-            <BoltIcon className='h-6 w-6' />
-            <h2>Capabilities</h2>
-          </div>
-
-          <div className='space-y-2'>
-            <p className='infoText'>Change the ChatGPT model to use</p>
-            <p className='infoText'>Messages are stored in Firebase's Firestore</p>
-            <p className='infoText'>Hot toast notifications when ChatGPT is thinking</p>
-          </div>
-
-        </div>
-
-        <div id='home-page-col-3'>
-
-          <div className='flex flex-col justify-center items-center mb-5'>
-            {/* Sun icon */}
-            <ExclamationTriangleIcon className='h-6 w-6' />
-            <h2>Limitations</h2>
-          </div>
-
-          <div className='space-y-2'>
-            <p className='infoText'>May ocassionaly generate incorrect information</p>
-            <p className='infoText'>My ocassionaly produce harmful instructions or biased content</p>
-            <p className='infoText'>Limited knowledge of world and events after 2021</p>
-          </div>
-
-        </div>
-      </div>
+    <div id='home-page' className='flex flex-col space-y-4 items-center justify-center min-h-screen text-white px-2'>
+      <h1 className='font-bold text-zinc-500 text-5xl'>ChatGPT</h1>
+      <Image
+        src={"/chat-gpt.png"}
+        alt='logo'
+        height={100}
+        width={100}
+        className='rounded-full bg-[#88a788] p-2'
+      />
+      <h3 className='font-semibold text-zinc-500 text-2xl text-center'>Create a new chat to start using our flagship AI</h3>
     </div>
   )
 }

@@ -25,7 +25,7 @@ export default function Chat({ chatId }) {
 
             {
                 messages?.docs.map((message) => {
-                    return <Message key={message.id} message={message.data()} />
+                    return <Message key={message.id} message={message.data()} profile={session?.user?.email} />
                 })
             }
         </div>

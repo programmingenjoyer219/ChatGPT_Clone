@@ -1,4 +1,5 @@
 import SideBar from "@/components/SideBar";
+import SidebarToggle from "@/components/SidebarToggle.jsx";
 import { SessionProvider } from "@/components/SessionProvider";
 import { getServerSession } from "next-auth";
 import Login from "@/components/Login";
@@ -21,12 +22,12 @@ export default async function RootLayout({ children }) {
 						(session)
 							?
 							(
-								<div className="flex">
-									<SideBar />
-
+								<div id="all-content-container" className="flex">
 									<ClientProvider />
 
-									<div className="bg-[#343541] flex-1">
+									<SideBar />
+
+									<div id="children-container" className="bg-[#222222] flex-1 relative">
 										{children}
 									</div>
 								</div>

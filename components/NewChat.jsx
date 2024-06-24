@@ -25,9 +25,10 @@ export default function NewChat() {
             title="New Chat"
             onClick={createNewChat}
             id="new-chat-button"
-            className="transition-all duration-200 hover:bg-gray-700/50 rounded-md p-2"
+            className="border border-gray-700 transition-all duration-200 hover:bg-zinc-700/50 rounded-md p-2 flex gap-2"
         >
-            <PencilSquareIcon className="h-6 w-6 text-gray-500 font-semibold" />
+            <span className="text-white text-center font-normal">New Chat</span>
+            <PencilSquareIcon className="h-6 w-6 text-zinc-500 font-semibold" />
         </button>
     )
 }
