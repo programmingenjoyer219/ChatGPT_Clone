@@ -20,11 +20,10 @@ export default function SideBar() {
     }
     return (
         <>
-            <SidebarToggle handleToggle={handleToggle} extraClass="bg-zinc-800 border border-gray-700 hover:bg-zinc-700 fixed top-4 right-8 z-[10]" />
+            <SidebarToggle handleToggle={handleToggle} />
             <div id="sidebar" className={`bg-[#1e1e1e] ${!active && 'translate-x-[-100%]'} w-[280px] z-[10] absolute flex flex-col h-screen transition-all duration-300 ease-out`}>
 
                 <div id="sidebar-button-container" className="flex items-center justify-center p-4">
-                    {/* <SidebarToggle handleToggle={handleToggle} extraClass="hover:bg-zinc-700/50" /> */}
                     <NewChat />
                 </div>
 
