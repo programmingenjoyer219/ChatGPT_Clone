@@ -43,6 +43,8 @@ This project utilizes the following resources and libraries:
 ### Documentation and Tutorials
 
 - Sonny Sangha's Youtube Tutorial: https://www.youtube.com/watch?v=1KPG3LiE4jU
+- Firebase tutorial by Net Ninja: https://www.youtube.com/watch?v=9zdvmgGsww0&list=PL4cUxeGkcC9jERUGvbudErNCeSZHWUVlb&index=2
+- How to style scrollbars?: https://www.youtube.com/watch?v=GvyGNcUiJGQ
 - NEXT.JS Documentation: https://nextjs.org/docs
 - Firebase Documentation: https://firebase.google.com/docs
 - SWR Documentation: https://swr.vercel.app/docs
